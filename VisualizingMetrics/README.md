@@ -15,6 +15,11 @@ is listening.  Log in using the configured Grafana credentials (see the
 `GF_SECURITY_ADMIN_USER`, `GF_SECURITY_ADMIN_PASSWORD` environment variables in
 `docker-compose.yml`).  Explore around.
 
+To log into the `ubuntu` container, do things to consume CPU, disk, use:
+```sh
+docker-compose exec ubuntu bash
+```
+
 When done, destroy all of the running containers using:
 ```sh
 docker-compose down

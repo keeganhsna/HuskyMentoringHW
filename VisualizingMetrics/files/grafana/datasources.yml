@@ -1,0 +1,12 @@
+# see: https://grafana.com/docs/administration/provisioning/
+# config file version
+---
+apiVersion: 1
+
+datasources:
+- name: InfluxDB
+  access: proxy
+  database: telegraf
+  editable: true
+  type: influxdb
+  url: http://influxdb:8086
