@@ -1,0 +1,36 @@
+---
+version: '3'
+
+services:
+  ubuntu:
+    build:
+      context: .
+    # Use this to keep the container running
+    command: >
+      sh -c "service telegraf start && tail -f /dev/null"
+    depends_on:
+      - influxdb
+    hostname: ubuntu
+    volumes:
+      - ./files/telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+
+  influxdb:
+    image: influxdb:1.8.5
+    expose:
+      - 8086
+    tmpfs:
+      - /var/lib/influxdb
+
+  grafana:
+    image: grafana/grafana:6.7.5
+    depends_on:
+      - influxdb
+    environment:
+      GF_SECURITY_ADMIN_USER: grafana
+      GF_SECURITY_ADMIN_PASSWORD: grafana
+    ports:
+      - 127.0.0.1:3000:3000
+    volumes:
+      - ./files/grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+    tmpfs:
+      - /var/lib/grafana
