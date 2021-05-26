@@ -32,5 +32,4 @@ services:
       - 127.0.0.1:3000:3000
     volumes:
       - ./files/grafana/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
-    tmpfs:
-      - /var/lib/grafana
+      - ./files/grafana/data:/var/lib/grafana
